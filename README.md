@@ -6,6 +6,6 @@ Beta:
   
 
 Ideas:
-  Able to switch over to manual mode if an error occurs
-  Catch errors when reading files
+  Able to switch over to manual mode if an error occurs |
+  Catch errors when reading files |
   Write to a file of the totals?
