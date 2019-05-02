@@ -7,9 +7,11 @@ Q = 0
 D = 0
 N = 0
 P = 0
+Var = 1
 
 #Print the change using a list
 Msg = [""]
+List = [""]
 
 #Have some loops for continous use
 Bool = False
@@ -18,7 +20,20 @@ Bool3 = False
 
 #First loop is for multiple change
 while Bool2 == False:
-    change = float(input("Enter your change: "))
+    #Change input into reading other inputs? Reading from a file?
+    f = open('text.txt', 'r')
+    f1 = f.readlines()
+    #Iterate through the file of numbers, convert into float
+    for i in f1:
+        a = float(i)
+        List.append(a)
+    #Var is used to get the correct "change" from a list.
+    contents = List[Var]
+    print("Change for {}".format(contents))
+    Var += 1
+    change = float(contents)
+    #Leave below for manual inputs?
+    #change = float(input("Enter your change: "))
     #If you input 0, quits program
     if change == 0:
         Bool2 = True
@@ -123,7 +138,7 @@ while Bool2 == False:
 
         elif P != 0:
             if P > 1:
-                Msg.append("{}Pennies ".format(P))
+                Msg.append("{} Pennies ".format(P))
             else:
                 Msg.append("{} Penny".format(P))
             P = 0
@@ -134,6 +149,7 @@ while Bool2 == False:
     #Print the list
     for i in Msg:
         print(i)
+    print("\n")
 
     #Reset the loops and message, and start again
     Msg = [""]
