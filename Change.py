@@ -12,32 +12,47 @@ Var = 1
 #Print the change using a list
 Msg = [""]
 List = [""]
+All = [""]
 
 #Have some loops for continous use
 Bool = False
 Bool2 = False
 Bool3 = False
 
+Choice = input("Would you like to use manual mode or file mode? ")
+Choice2 = input("Would you like your results in a file? ")
+
 #First loop is for multiple change
 while Bool2 == False:
-    #Change input into reading other inputs? Reading from a file?
-    f = open('text.txt', 'r')
-    f1 = f.readlines()
-    #Iterate through the file of numbers, convert into float
-    for i in f1:
-        a = float(i)
-        List.append(a)
-    #Var is used to get the correct "change" from a list.
-    contents = List[Var]
-    print("Change for {}".format(contents))
-    Var += 1
-    change = float(contents)
-    #Leave below for manual inputs?
-    #change = float(input("Enter your change: "))
+    #Manual inputs or File inputs
+    if Choice.lower() == "manual" or Choice.lower() == "m":
+        #Try to catch value errors
+        try:
+            change = float(input("Enter your change: "))
+        #Stop program...maybe re run loop?
+        except ValueError:
+            print("Error, not a number.")
+            break
+    elif Choice.lower() == "file" or Choice.lower() == "f":
+        #Change input into reading other inputs? Reading from a file?
+        f = open('text.txt', 'r')
+        f1 = f.readlines()
+        #Iterate through the file of numbers, convert into float
+        for i in f1:
+            a = float(i)
+            List.append(a)
+        #Var is used to get the correct "change" from a list.
+        contents = List[Var]
+        change = float(contents)
     #If you input 0, quits program
     if change == 0:
         Bool2 = True
         break
+    print("Change for {}".format(contents))
+    All.append("")
+    All.append(contents)
+    Var += 1
+
     #Little function to subtract from the change and a specific number given
     def func(change, num):
         change = change - num
@@ -147,13 +162,35 @@ while Bool2 == False:
         else:
             Bool3 = True
     #Print the list
-    for i in Msg:
-        print(i)
+    #If don't want to print to file, print in console
+    if Choice2.lower() == "no":
+        for i in Msg:
+            print(i)
+    #Print in file
+    elif Choice2.lower() == "yes":
+        f2 = open("results.txt", "w+")
+        f2.write("")
+        f2.close()
+        for i in Msg:
+            All.append('{}'.format(i))
+        All.append(" ")
+
+
     print("\n")
 
     #Reset the loops and message, and start again
     Msg = [""]
     Bool3 = False
     Bool = False
+if Choice2.lower() == "yes":
+    print(All)
+    All = All[2:]
+    print(All)
+    for i in All:
+        f2 = open('results.txt', 'a+')
+        f2.write("")
+        f2.write("{}\n".format(i))
+        f2.write("")
+    f2.close()
 
 print("End.")
